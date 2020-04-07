@@ -87,35 +87,7 @@ libraryActors.push(MRE.Actor.CreateFromLibrary(this.context, {
                  })
                  model.attach(userid, "head");
                    })
-// AltspaceVR resource IDs from https://account.altvr.com/kits/
-const libraryActors: MRE.Actor[] = [];
-libraryActors.push(MRE.Actor.CreateFromLibrary(this.context, {
-    resourceId: "artifact: 1444362731275681922",
-    actor: {
-        name: 'Invisacube',
-                            transform: {local:{
-                                position: { x: 5, y: 0, z: 0 },
-                                scale: { x: 0.5, y: 0.5, z: 0.5}
-        }}
-    }
-}));
-               // Trigger the grow/shrink animations on hover
-               //@ts-ignore
-                   ((userid: `860484044419236158`) => {        const libraryActors: MRE.Actor[] = [];
-                    const model = Actor.CreateFromLibrary(this.context, {
-                        resourceId: "artifact: 1445184430065844383",
-                        actor: {
-                            name: 'Helmetgreen2',
-                        transform: {local:{
-                                rotation: { x: 0, y: 0, z:0 },
-                                position: { x: 0, y: 0.065, z: 0.055 },
-                                scale: { x: 0.93, y: 0.93, z: 0.93},
-                                
-                           }}
-                     }
-                 })
-                 model.attach(userid, "head");
-                   })
+
                 })
             }
 }
