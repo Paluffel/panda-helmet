@@ -25,6 +25,7 @@ export default class HelloWorld {
     private text: Actor = null;
     private cube: Actor = null;
     user: any;
+    attachedItems: any;
 
     constructor(private context: Context, private baseUrl: string) {
         this.context.onStarted(() => this.started());
@@ -39,10 +40,12 @@ export default class HelloWorld {
         const textPromise = Actor.CreateEmpty(this.context, {
             actor: {
                 name: 'Text',
-                transform: {
-                },
+                transform: {local:{
+                    position: { x: 0, y: -0.5, z: 0 },
+                    scale: { x: 1, y: 1, z: 1}
+                }},
                 text: {
-                    contents: "click me so you can wear me ",
+                    contents: "Hello Panda  ",
                     anchor: TextAnchorLocation.MiddleCenter,
                     color: { r: 213 / 255, g: 0 / 255, b: 213 / 255 },
                     height: 0
@@ -52,12 +55,12 @@ export default class HelloWorld {
 // AltspaceVR resource IDs from https://account.altvr.com/kits/
 const libraryActors: MRE.Actor[] = [];
 libraryActors.push(MRE.Actor.CreateFromLibrary(this.context, {
-    resourceId: "artifact: 1268272832299664334",
+    resourceId: "artifact: 1268209511420658610",
     actor: {
-        name: 'P4ndam4sk2 00',
+        name: 'P4ndam4sk 02',
                             transform: {local:{
                                 position: { x: 0, y: 0, z: 0 },
-                                scale: { x: 40, y: 40, z: 40}
+                                scale: { x: 0.3, y: 0.3, z: 0.3}
         }}
     }
 }));
@@ -65,11 +68,11 @@ libraryActors.push(MRE.Actor.CreateFromLibrary(this.context, {
        // Button behaviors have two pairs of events: hover start/stop, and click start/stop.
        libraryActors.forEach((actor: MRE.Actor) => {
         if (actor) {
-            const buttonBehavior = actor.setBehavior(MRE.ButtonBehavior);
+            const buttonBehavior = actor.setBehavior(MRE.ButtonBehavior)
 
                // Trigger the grow/shrink animations on hover
                //@ts-ignore
-                   buttonBehavior.onClick((user: User) => {        const libraryActors: MRE.Actor[] = [];
+                   buttonBehavior.onClick((userid: `860484044419236158`) => {        const libraryActors: MRE.Actor[] = [];
                     const model = Actor.CreateFromLibrary(this.context, {
                         resourceId: "artifact: 1445184430065844383",
                         actor: {
@@ -82,11 +85,8 @@ libraryActors.push(MRE.Actor.CreateFromLibrary(this.context, {
                            }}
                      }
                  })
-                 model.attach(user, "head");
+                 model.attach(userid, "head");
                    })
-                }
-            })
-            {
 // AltspaceVR resource IDs from https://account.altvr.com/kits/
 const libraryActors: MRE.Actor[] = [];
 libraryActors.push(MRE.Actor.CreateFromLibrary(this.context, {
@@ -116,6 +116,6 @@ libraryActors.push(MRE.Actor.CreateFromLibrary(this.context, {
                  })
                  model.attach(userid, "head");
                    })
-                }
+                })
             }
-        }
+}
