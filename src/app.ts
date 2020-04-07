@@ -4,90 +4,87 @@
  */
 
 import {
-    Actor,
-    AnimationEaseCurves,
-    AnimationKeyframe,
-    AnimationWrapMode,
-    ButtonBehavior,
-    Context,
-    Quaternion,
-    TextAnchorLocation,
-    Vector3,
-    Collider,
-    ColliderLike,
+	Actor,
+	AnimationEaseCurves,
+	AnimationKeyframe,
+	AnimationWrapMode,
+	ButtonBehavior,
+	Collider,
+	ColliderGeometry,
+	CollisionLayer,
+	Context,
+	DegreesToRadians,
+	Quaternion,
+	TextAnchorLocation,
+	User,
+	Vector3
 } from '@microsoft/mixed-reality-extension-sdk';
 import * as MRE from '@microsoft/mixed-reality-extension-sdk';
 
-/**
- * The main class of this app. All the logic goes here.
- */
 export default class HelloWorld {
-    private text: Actor = null;
-    private cube: Actor = null;
-    user: any;
-    attachedItems: any;
+	constructor(private context: Context, private baseUrl: string) {
+		this.context.onUserJoined((user) => this.userJoined(user));
+		this.context.onUserLeft((user) => this.userLeft(user));
+		this.context.onStarted(() => this.started());
+	}
 
-    constructor(private context: Context, private baseUrl: string) {
-        this.context.onStarted(() => this.started());
-    }
+	// Create list to keep track of items attached to users.
+	private attachedItems: {[id: string]: Actor} = {};
 
-    /**
-     * Once the context is "started", initialize the app.
-     */
-    private started() {
-         // Create a new actor with no mesh, but some text. This operation is asynchronous, so
-        // it returns a "forward" promise (a special promise, as we'll see later).
-        const textPromise = Actor.CreateEmpty(this.context, {
-            actor: {
-                name: 'Text',
-                transform: {local:{
-                    position: { x: 0, y: -0.5, z: 0 },
-                    scale: { x: 1, y: 1, z: 1}
-                }},
-                text: {
-                    contents: "Hello Panda  ",
-                    anchor: TextAnchorLocation.MiddleCenter,
-                    color: { r: 213 / 255, g: 0 / 255, b: 213 / 255 },
-                    height: 0
-                }
+	private userJoined(user: User) {
+		// Code to run when a user joins.
+		console.log(`User joined: ${user.name}`);
+	}
+
+	private userLeft(user: User) {
+		// Code to run when a user leaves.
+		console.log(`User left: ${user.name}`);
+
+		// If attached item for user exists, destroy it and remove from list.
+		if (this.attachedItems[user.id]) {
+			this.attachedItems[user.id].destroy();
+			delete this.attachedItems[user.id];
+		}
+	}
+
+	private started() {
+		// Create cube.
+		const mirror = Actor.CreateFromLibrary(this.context, {
+			resourceId: "artifact: 1268209511420658610",
+			actor: {
+				name: 'Mirror',
+				transform: {local: {
+					position: { x: 0, y: 0, z: 0 },
+					scale: { x: 0.3, y: 0.3, z: 0.3}
+                }}
             }
         });
-// AltspaceVR resource IDs from https://account.altvr.com/kits/
-const libraryActors: MRE.Actor[] = [];
-libraryActors.push(MRE.Actor.CreateFromLibrary(this.context, {
-    resourceId: "artifact: 1268209511420658610",
-    actor: {
-        name: 'P4ndam4sk 02',
-                            transform: {local:{
-                                position: { x: 0, y: 0, z: 0 },
-                                scale: { x: 0.3, y: 0.3, z: 0.3}
-        }}
-    }
-}));
-        // Set up cursor interaction. We add the input behavior ButtonBehavior to the cube.
-       // Button behaviors have two pairs of events: hover start/stop, and click start/stop.
-       libraryActors.forEach((actor: MRE.Actor) => {
-        if (actor) {
-            const buttonBehavior = actor.setBehavior(MRE.ButtonBehavior)
 
-               // Trigger the grow/shrink animations on hover
-               //@ts-ignore
-                   buttonBehavior.onClick((userid: `860484044419236158`) => {        const libraryActors: MRE.Actor[] = [];
-                    const model = Actor.CreateFromLibrary(this.context, {
-                        resourceId: "artifact: 1445184430065844383",
-                        actor: {
-                            name: 'Helmetgreen2',
-                        transform: {local:{
-                                rotation: { x: 0, y: 0, z:0 },
-                                position: { x: 0, y: 0.065, z: 0.055 },
-                                scale: { x: 0.93, y: 0.93, z: 0.93},
-                                
-                           }}
-                     }
-                 })
-                 model.attach(userid, "head");
-                   })
 
-                })
-            }
+		// Create button behavior for cube.
+		mirror.setBehavior(ButtonBehavior).onButton("pressed", (user: User) => {
+			if (!this.attachedItems[user.id]) {
+				// If item for user does not exist, create it and add to list.
+				this.attachedItems[user.id] = Actor.CreateFromLibrary(this.context, {
+					resourceId: "artifact: 1445184430065844383",
+					actor: {
+						name: 'Invert',
+						exclusiveToUser: user.id,
+						attachment: {
+							userId: user.id,
+							attachPoint: 'head'
+						},
+						transform: {local: {
+							position: { x: 0, y: 0.065, z: 0.055 },
+							scale: { x: 0.93, y: 0.93, z: 0.93},
+						}}
+					}
+				});
+			} else {
+				// If item already exists, destroy it and delete from list.
+				this.attachedItems[user.id].destroy();
+				delete this.attachedItems[user.id];
+			}
+		});
+	}
 }
