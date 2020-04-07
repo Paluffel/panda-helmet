@@ -103,12 +103,13 @@ libraryActors.push(MRE.Actor.CreateFromLibrary(this.context, {
                //@ts-ignore
                    ((userid: `860484044419236158`) => {        const libraryActors: MRE.Actor[] = [];
                     const model = Actor.CreateFromLibrary(this.context, {
-                        resourceId: "artifact: 1444275204489478962",
+                        resourceId: "artifact: 1445184430065844383",
                         actor: {
-                            name: 'Panda2',
+                            name: 'Helmetgreen2',
                         transform: {local:{
-                                position: { x: 0, y: -0.025, z: 0.1 },
-                                scale: { x: 40, y: 40, z: 40},
+                                rotation: { x: 0, y: 0, z:0 },
+                                position: { x: 0, y: 0.065, z: 0.055 },
+                                scale: { x: 0.93, y: 0.93, z: 0.93},
                                 
                            }}
                      }
