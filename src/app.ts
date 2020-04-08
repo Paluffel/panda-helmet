@@ -27,8 +27,21 @@ export default class HelloWorld {
 		this.context.onUserLeft((user) => this.userLeft(user));
 		this.context.onStarted(() => this.started());
 	}
+		// Create list to keep track of items attached to users.
+		private attachedItems: {[id: string]: Actor} = {};
 
-private started() {
+		private userJoined(user: User) {
+			// Code to run when a user joins.
+			console.log(`User joined: ${user.name}`);
+	
+		// If attached item for user exists, destroy it and remove from list.
+		if (this.attachedItems[user.id]) {
+			this.attachedItems[user.id].destroy();
+			delete this.attachedItems[user.id];
+		}
+	}
+
+	private started() {
 		// Create cube.
 		const mirror = Actor.CreateFromLibrary(this.context, {
 			resourceId: "artifact: 1268209511420658610",
@@ -69,4 +82,3 @@ private started() {
 		});
 	}
 }
-
