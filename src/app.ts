@@ -50,16 +50,15 @@ export default class HelloWorld {
 	private started() {
 		// Create cube.
 		const mirror = Actor.CreateFromLibrary(this.context, {
-			resourceId: "artifact: 1268209511420658610",
+			resourceId: "artifact: 989569229617365197",
 			actor: {
 				name: 'Mirror',
 				transform: {local: {
 					position: { x: 0, y: 0, z: 0 },
-					scale: { x: 0.3, y: 0.3, z: 0.3}
-                }}
-            }
-        });
-
+					scale: { x: 0.5, y: 0.5, z: 0.5}
+				}}
+			}
+		});
 
 		// Create button behavior for cube.
 		mirror.setBehavior(ButtonBehavior).onButton("pressed", (user: User) => {
@@ -69,7 +68,6 @@ export default class HelloWorld {
 					resourceId: "artifact: 1445184430065844383",
 					actor: {
 						name: 'Invert',
-						exclusiveToUser: user.id,
 						attachment: {
 							userId: user.id,
 							attachPoint: 'head'
