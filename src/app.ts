@@ -68,7 +68,7 @@ export default class HelloWorld {
 				this.attachedItems[user.id] = Actor.CreateFromLibrary(this.context, {
 					resourceId: "artifact: 1445184430065844383",
 					actor: {
-						name: 'Invert',
+						name: 'Helmetgreen2',
 						exclusiveToUser: user.id,
 						attachment: {
 							userId: user.id,
