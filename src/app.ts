@@ -50,7 +50,7 @@ export default class HelloWorld {
 	private started() {
 		// Create cube.
 		const mirror = Actor.CreateFromLibrary(this.context, {
-			resourceId: "artifact: 989569229617365197",
+			resourceId: "artifact: 1268209511420658610",
 			actor: {
 				name: 'Mirror',
 				transform: {local: {
