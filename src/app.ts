@@ -27,13 +27,19 @@ export default class HelloWorld {
 		this.context.onUserLeft((user) => this.userLeft(user));
 		this.context.onStarted(() => this.started());
 	}
-		// Create list to keep track of items attached to users.
-		private attachedItems: {[id: string]: Actor} = {};
 
-		private userJoined(user: User) {
-			// Code to run when a user joins.
-			console.log(`User joined: ${user.name}`);
-	
+	// Create list to keep track of items attached to users.
+	private attachedItems: {[id: string]: Actor} = {};
+
+	private userJoined(user: User) {
+		// Code to run when a user joins.
+		console.log(`User joined: ${user.name}`);
+	}
+
+	private userLeft(user: User) {
+		// Code to run when a user leaves.
+		console.log(`User left: ${user.name}`);
+
 		// If attached item for user exists, destroy it and remove from list.
 		if (this.attachedItems[user.id]) {
 			this.attachedItems[user.id].destroy();
