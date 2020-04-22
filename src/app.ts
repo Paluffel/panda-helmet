@@ -48,7 +48,6 @@ export default class HelloWorld {
                     transform: {local: {
                        							position: { x: 0, y: 0.065, z: 0.055 },
 							scale: { x: 0.93, y: 0.93, z: 0.93},
-                        rotation: Quaternion.FromEulerAngles(270 * DegreesToRadians, 0 * DegreesToRadians, 0 * DegreesToRadians)
                     }}
                 }
             });
