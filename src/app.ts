@@ -53,29 +53,6 @@ export default class HelloWorld {
                     }}
                 }
             });
-
-            // Code to run when a user joins.
-            console.log(`User joined: ${user.name}`);
-            console.log(user);
-            if (user.name === "Paluffel"){
-                Actor.CreateFromLibrary(this.context, {
-                    resourceId: "artifact: 1446622705561370720",
-                    actor: {
-                        name: 'Test Helmet',
-                        exclusiveToUser: user.id,
-                        attachment: {
-                            userId: user.id,
-                            attachPoint: 'head'
-                        },
-                        transform: {local: {
-                            position: { x: 0, y: 0, z: 0.13 },
-                            scale: { x: 0.05, y: 0.05, z: 0.025},
-                            rotation: Quaternion.FromEulerAngles(270 * DegreesToRadians, 0 * DegreesToRadians, 0 * DegreesToRadians)
-                        }}
-                    }
-                });
-            }
-    
         }
     }
 }
